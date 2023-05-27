@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player")]
     [SerializeField][Range(0, 20f)] float h_speed;
     [SerializeField][Range(0, 10f)] float v_speed;
-    [SerializeField][Range(0f, 1f)] float flipSpeed = .2f; // Adjust the speed of turning here
+    [SerializeField][Range(0f, 1f)] float flipSpeed = .2f;
     [SerializeField] Vector2 vertical_mapBoder;
     private bool isFacingRight;
     private float h_input, v_input;
@@ -22,8 +22,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isFacingRight = true;
-        //speed = 5f;
-        //jumpForce = 6f;
     }
     void Update()
     {
@@ -79,20 +77,24 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator TurnPlayer(int direction)
     {
+        //Flip direction
         float targetScaleX = direction;
+        //Time for flip
         float elapsedTime = 0f;
+        //Asign localScale
         float initialScaleX = transform.localScale.x;
-
+        //check while time is less than flip speed;
         while (elapsedTime < flipSpeed)
         {
+            //time = 
             float t = elapsedTime / flipSpeed;
             float scaleX = Mathf.Lerp(initialScaleX, targetScaleX, t);
-            transform.localScale = new Vector3(scaleX, 1f, 1f);
+            transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.localScale = new Vector3(targetScaleX, 1f, 1f);
+        transform.localScale = new Vector3(targetScaleX, transform.localScale.y, transform.localScale.z);
         isFacingRight = (direction == 1);
     }
 }
