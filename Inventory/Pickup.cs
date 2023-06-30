@@ -13,6 +13,6 @@ public class Pickup : MonoBehaviour
     private void OnMouseDown()
     {
         pickupItem();
+        pickupItem2();
     }
-
 }
